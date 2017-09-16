@@ -26,6 +26,7 @@ resource "aws_api_gateway_integration_response" "ResourceMethodIntegration200" {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
   response_templates = { "application/json" = "${var.integration_response_template}" }
+  depends_on = [ "aws_api_gateway_integration.ResourceMethodIntegration" ]
 }
 
 resource "aws_api_gateway_integration_response" "ResourceMethodIntegration400" {
@@ -37,6 +38,7 @@ resource "aws_api_gateway_integration_response" "ResourceMethodIntegration400" {
     "application/json" = "${var.integration_error_template}"
   }
   response_parameters = { "method.response.header.Access-Control-Allow-Origin" = "'*'" }
+  depends_on = [ "aws_api_gateway_integration.ResourceMethodIntegration" ]
 }
 
 resource "aws_api_gateway_method_response" "ResourceMethod200" {
