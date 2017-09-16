@@ -45,7 +45,7 @@ resource "aws_api_gateway_method_response" "ResourceMethod200" {
   http_method = "${aws_api_gateway_method.ResourceMethod.http_method}"
   status_code = "200"
   response_models = { "application/json" = "${var.response_model}" }
-  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = "*" }
+  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
 }
 
 resource "aws_api_gateway_method_response" "ResourceMethod400" {
@@ -54,5 +54,5 @@ resource "aws_api_gateway_method_response" "ResourceMethod400" {
   http_method = "${aws_api_gateway_method.ResourceMethod.http_method}"
   status_code = "400"
   response_models = { "application/json" = "Error" }
-  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = "*" }
+  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
 }
