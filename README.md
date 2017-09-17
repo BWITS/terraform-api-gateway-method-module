@@ -55,10 +55,7 @@ Need CORS enabled? check out [https://github.com/carrot/terraform-api-gateway-co
 | account_id | # AWS Account ID | - | yes |
 | authorization | # Authorization used on request, e,g., "IAM_AM" | "NONE" | `NONE` | no |
 | http_method | # HTTP Method ID, e.g., ${var.aws_api_gateway_method.<METHOD>.id} | - | yes |
-| integration_error_template | # Velocity template used to deliver errors to response. Assumes all responses uses the same error template. | `#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')) {
-  "message" : "$errorMessageObj.message"
-}
-` | no |
+| integration_error_template | # Velocity template used to deliver errors to response. Assumes all responses uses the same error template. | `#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage'))` | no |
 | integration_request_template | # Velocity template used to capture params from request and send to lambda # more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | `{}` | no |
 | integration_response_template | # Velocity template used to capture params sent to response from lambda (optional) # more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | `#set($inputRoot = $input.path('$')){}` | no |
 | lambda_name | # Point to name of a lambda function attached to your account and region | - | yes |
