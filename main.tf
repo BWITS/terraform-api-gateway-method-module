@@ -87,7 +87,7 @@ resource "aws_api_gateway_integration_response" "ResourceMethodIntegration200" {
     "application/json" = "${var.integration_response_template}"
   }
 
-  depends_on = ["aws_api_gateway_integration.ResourceMethodIntegration"]
+  depends_on = ["aws_api_gateway_integration.ResourceMethodIntegration", "aws_api_gateway_method_response.ResourceMethod200"]
 }
 
 resource "aws_api_gateway_integration_response" "ResourceMethodIntegration400" {
