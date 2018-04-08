@@ -13,11 +13,18 @@ This module makes a few assumptions for simplicity:
 ## Example Useage
 ```
 
+# Create an API Gateway REST API
+
+resource "aws_api_gateway_rest_api" "MyDemoAPI" {
+  name        = "MyDemoAPI"
+  description = "This is my API for demonstration purposes"
+}
+
 # Create a resource
 
 resource "aws_api_gateway_resource" "users" {
-  rest_api_id = "${aws_api_gateway_rest_api.<API_NAME>.id}"
-  parent_id = "${aws_api_gateway_rest_api.<API_NAME>.root_resource_id}"
+  rest_api_id = "${aws_api_gateway_rest_api.MyDemoAPI.id}"
+  parent_id = "${aws_api_gateway_rest_api.MyDemoAPI.root_resource_id}"
   path_part = "users"
 }
 
@@ -50,19 +57,19 @@ Need CORS enabled? check out [https://github.com/carrot/terraform-api-gateway-co
 
 ## Inputs
 
-| Name | Description | Default | Required |
-|------|-------------|:-----:|:-----:|
-| account_id | # AWS Account ID | - | yes |
-| authorization | # Authorization used on request, e,g., "IAM_AM" | "NONE" | `NONE` | no |
-| http_method | # HTTP Method ID, e.g., ${var.aws_api_gateway_method.<METHOD>.id} | - | yes |
-| integration_error_template | # Velocity template used to deliver errors to response. Assumes all responses uses the same error template. | `#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage'))` | no |
-| integration_request_template | # Velocity template used to capture params from request and send to lambda # more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | `{}` | no |
-| integration_response_template | # Velocity template used to capture params sent to response from lambda (optional) # more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | `#set($inputRoot = $input.path('$')){}` | no |
-| lambda_name | # Point to name of a lambda function attached to your account and region | - | yes |
-| region | # AWS Region | - | yes |
-| request_model | # Name of model used for method request. e.g., `Empty`, `Error` or create a custom model and reference that by name | `Empty` | no |
-| request_parameters | # Request Parameters, A map of request query string parameters and headers that should be passed to the integration. | `<map>` | no |
-| resource_id | # Resource ID, e.g., ${var.aws_api_gateway_resource.<RESOURCE>.id} | - | yes |
-| response_model | # Name of model used for method Response. e.g., `Empty`, `Error` or create a custom model and reference that by name | `Empty` | no |
-| rest_api_id | # API Gateway ID. e.g., ${var.aws_api_gateway_rest_api.<API>.id} | - | yes |
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| account_id | AWS Account ID | string | - | yes |
+| authorization | Authorization used on request, e,g., "IAM_AM" | "NONE" | string | `NONE` | no |
+| http_method | HTTP Method ID, e.g., ${var.aws_api_gateway_method.<METHOD>.id} | string | - | yes |
+| integration_error_template | Velocity template used to deliver errors to response. Assumes all responses uses the same error template. | string | `#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')) {   "message" : "$errorMessageObj.message" } ` | no |
+| integration_request_template | Velocity template used to capture params from request and send to lambda more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | string | `{}` | no |
+| integration_response_template | Velocity template used to capture params sent to response from lambda (optional) more info: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html | string | `#set($inputRoot = $input.path('$')){}` | no |
+| lambda_name | Point to name of a lambda function attached to your account and region | string | - | yes |
+| region | AWS Region | string | - | yes |
+| request_model | Name of model used for method request. e.g., `Empty`, `Error` or create a custom model and reference that by name | string | `Empty` | no |
+| request_parameters | Request Parameters, A map of request query string parameters and headers that should be passed to the integration. | string | `<map>` | no |
+| resource_id | Resource ID, e.g., ${var.aws_api_gateway_resource.<RESOURCE>.id} | string | - | yes |
+| response_model | Name of model used for method Response. e.g., `Empty`, `Error` or create a custom model and reference that by name | string | `Empty` | no |
+| rest_api_id | API Gateway ID. e.g., ${var.aws_api_gateway_rest_api.<API>.id} | string | - | yes |
 

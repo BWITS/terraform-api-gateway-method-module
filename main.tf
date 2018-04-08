@@ -14,11 +14,18 @@
 * ## Example Useage
 * ```
 * 
+* # Create an API Gateway REST API
+*
+* resource "aws_api_gateway_rest_api" "MyDemoAPI" {
+*   name        = "MyDemoAPI"
+*   description = "This is my API for demonstration purposes"
+* }
+*
 * # Create a resource
 * 
 * resource "aws_api_gateway_resource" "users" {
-*   rest_api_id = "${aws_api_gateway_rest_api.<API_NAME>.id}"
-*   parent_id = "${aws_api_gateway_rest_api.<API_NAME>.root_resource_id}"
+*   rest_api_id = "${aws_api_gateway_rest_api.MyDemoAPI.id}"
+*   parent_id = "${aws_api_gateway_rest_api.MyDemoAPI.root_resource_id}"
 *   path_part = "users"
 * }
 * 
